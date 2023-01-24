@@ -1,13 +1,18 @@
-import { SVG } from "./components/svg";
+import { AppInnerWrapper } from "./components/AppInnerWrapper";
+import { Header } from "./components/Header";
+import { MaxTemperature } from "./components/MaxTemperature";
+import { WeatherTabs } from "./components/Tabs";
+import { WeatherDetails } from "./components/WeatherDetails";
 
 function App() {
   return (
-    <div>
-      <h1 className='text-custom-dark-blue text-3xl font-bold underline font-chakra'>
-        Weather app
-      </h1>
-      <h2 className='font-russo text-custom-gray-200'>Weather app</h2>
-      <SVG iconName={"day-cloudy"} className='fill-amber-300' />
+    <div className='flex justify-center items-center min-h-screen bg-custom-bg-outer text-custom-off-white font-chakra'>
+      <AppInnerWrapper>
+        <Header />
+        <MaxTemperature />
+        <WeatherDetails />
+        <WeatherTabs />
+      </AppInnerWrapper>
     </div>
   );
 }
