@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      // Aliases for the folders we want to use
+      "@components": ["./components"],
+      "@reusable-components": ["./reusable-components"],
+      "@assets": ["./assets"],
+      "@icons": ["./assets/icons"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
