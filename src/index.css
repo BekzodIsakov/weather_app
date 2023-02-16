@@ -9,6 +9,22 @@
 }
 
 @layer utilities {
+  *::-webkit-scrollbar {
+    @apply w-1 h-1;
+  }
+
+  /* *:hover::-webkit-scrollbar {
+    @apply h-1.5 w-1.5;
+  } */
+
+  *::-webkit-scrollbar-track {
+    @apply rounded-full bg-custom-gray-200 bg-transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply bg-custom-gray-100 rounded-full;
+  }
+
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -19,4 +35,21 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+}
+
+.svgAssetHidden {
+  visibility: hidden;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
+
+.svgIcon {
+  display: inline-block;
+  width: 10em;
+}
+
+.dsp-non {
+  display: none;
 }

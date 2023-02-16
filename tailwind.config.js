@@ -14,6 +14,9 @@ module.exports = {
       fontSize: {
         primary: ["13px", "18px"],
       },
+      borderWidth: {
+        3: "3px",
+      },
       colors: {
         custom: {
           "off-white": "#f3f3f3",

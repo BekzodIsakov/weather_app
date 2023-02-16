@@ -1,17 +1,27 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { Tab } from "../reusable-components/Tab";
-import { TabPanel } from "../reusable-components/TabPanel";
-import { HourlyWeather } from "../reusable-components/HourlyWeather";
+import {
+  HourlyWeather,
+  DailyWeatherPanel,
+  Tab,
+  TabPanel,
+} from "../reusable-components";
 
 const TABS = ["Today", "Tomorrow", "Next 10 days"];
+const VARIANTS = {
+  open: {
+    opacity: 1,
+    x: 0,
+    transition: { type: "spring", stiffness: 100, damping: 24 },
+  },
+};
 
 export const WeatherTabs = () => {
-  const [activeTabIdx, setActiveTabIdx] = React.useState(0);
+  const [activeTabIdx, setActiveTabIdx] = React.useState(2);
 
   return (
-    <div>
+    <div className='flex flex-col overflow-auto '>
       <div className='flex gap-x-5'>
         {TABS.map((tab, idx) => (
           <Tab
@@ -26,30 +36,73 @@ export const WeatherTabs = () => {
           </Tab>
         ))}
       </div>
-      <div className='mt-5'>
+      <div className='mt-5 overflow-auto'>
         <AnimatePresence mode='wait'>
           {activeTabIdx === 0 ? (
             <TabPanel key={0}>
-              <div className='flex flex-row gap-x-2.5 overflow-auto scrollbar-hide'>
+              <motion.div
+                className='flex flex-row gap-x-2.5 overflow-auto pb-2 scrollbar'
+                animate={activeTabIdx === 0 ? "open" : "closed"}
+                variants={{
+                  open: {
+                    transition: {
+                      delayChildren: 0,
+                      staggerChildren: 0.1,
+                    },
+                  },
+                }}
+              >
                 {Array(7)
                   .fill(true)
                   .map((_, idx) => (
-                    <HourlyWeather key={idx} />
+                    <motion.li
+                      key={idx}
+                      initial={{ x: 230, opacity: 0.2 }}
+                      variants={VARIANTS}
+                    >
+                      <HourlyWeather />
+                    </motion.li>
                   ))}
-              </div>
+              </motion.div>
             </TabPanel>
           ) : activeTabIdx === 1 ? (
             <TabPanel key={1}>
-              <div className='flex flex-row gap-x-2.5 overflow-auto scrollbar-hide'>
-                {Array(7)
+              <motion.div
+                className='flex flex-row gap-x-2.5 overflow-auto pb-2 scrollbar'
+                animate={activeTabIdx === 1 ? "open" : "closed"}
+                variants={{
+                  open: {
+                    transition: {
+                      delayChildren: 0,
+                      staggerChildren: 0.1,
+                    },
+                  },
+                }}
+              >
+                {Array(8)
                   .fill(true)
                   .map((_, idx) => (
-                    <HourlyWeather key={idx} />
+                    <motion.li
+                      key={idx}
+                      initial={{ x: 230, opacity: 0.2 }}
+                      variants={VARIANTS}
+                    >
+                      <HourlyWeather />
+                    </motion.li>
                   ))}
-              </div>
+              </motion.div>
             </TabPanel>
           ) : (
-            <TabPanel key={2}>Next 10 days</TabPanel>
+            <TabPanel key={2} className='mt-1 scrollbar'>
+              <DailyWeatherPanel>Today</DailyWeatherPanel>
+              <DailyWeatherPanel>Friday</DailyWeatherPanel>
+              <DailyWeatherPanel>Saturday</DailyWeatherPanel>
+              <DailyWeatherPanel>Sunday</DailyWeatherPanel>
+              <DailyWeatherPanel>Monday</DailyWeatherPanel>
+              <DailyWeatherPanel>Tuesday</DailyWeatherPanel>
+              <DailyWeatherPanel>Wednesday</DailyWeatherPanel>
+              <DailyWeatherPanel>Thursday</DailyWeatherPanel>
+            </TabPanel>
           )}
         </AnimatePresence>
       </div>

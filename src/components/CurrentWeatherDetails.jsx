@@ -1,6 +1,6 @@
 import React from "react";
-import { Box } from "../reusable-components/Box";
-import { SVG } from "../reusable-components/SVG";
+import { Box, SVG } from "../reusable-components";
+import { ReactComponent as HumidityIcon } from "../assets/icons/humidity.svg";
 
 const DETAILS = [
   { type: "wind", data: "10 m/s" },
@@ -11,14 +11,15 @@ const DETAILS = [
 const Detail = ({ type, data }) => {
   return (
     <div className='flex flex-col items-center'>
-      <SVG iconName={type} className='fill-indigo-500 mb-1' />
+      {/* <SVG iconName={type} className='fill-indigo-500 mb-1' /> */}
+      <HumidityIcon />
       <div className='text-sm'>{data}</div>
       <div className='text-xs capitalize text-custom-gray-100'>{type}</div>
     </div>
   );
 };
 
-export const WeatherDetails = () => {
+export const CurrentWeatherDetails = () => {
   return (
     <section className='mb-5'>
       <Box className={"py-3 px-5 xs:px-7 xs2:px-11"}>

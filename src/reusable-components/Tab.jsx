@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Tab = ({ children, isActive, onClick, className = "" }) => {
-  let defaultStyle = " relative text-primary py-1 cursor-pointer";
+  let defaultStyle = "relative text-primary py-1 cursor-pointer";
 
   if (isActive) {
     defaultStyle += " text-custom-off-white";
