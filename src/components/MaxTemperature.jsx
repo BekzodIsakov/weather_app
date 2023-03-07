@@ -9,8 +9,8 @@ export const MaxTemperature = () => {
         <div className='text-primary capitalize text-custom-gray-200'>
           thunderstorm
         </div>
-        <Icon name='animated/overcast-day' />
       </div>
+      <Icon name='animated/overcast-day' width='120' />
     </section>
   );
 };

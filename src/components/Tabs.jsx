@@ -22,7 +22,7 @@ export const WeatherTabs = () => {
 
   return (
     <div className='flex flex-col overflow-auto '>
-      <div className='flex gap-x-5'>
+      <div className='flex gap-x-5 p-0.5'>
         {TABS.map((tab, idx) => (
           <Tab
             key={tab}
@@ -40,7 +40,7 @@ export const WeatherTabs = () => {
         <AnimatePresence mode='wait'>
           {activeTabIdx === 0 ? (
             <TabPanel key={0}>
-              <motion.div
+              {/* <motion.div
                 className='flex flex-row gap-x-2.5 overflow-auto pb-2 scrollbar'
                 animate={activeTabIdx === 0 ? "open" : "closed"}
                 variants={{
@@ -51,23 +51,25 @@ export const WeatherTabs = () => {
                     },
                   },
                 }}
-              >
+              > */}
+              <div className='flex flex-row gap-x-2.5 overflow-auto pb-2 scrollbar'>
                 {Array(7)
                   .fill(true)
                   .map((_, idx) => (
                     <motion.li
                       key={idx}
-                      initial={{ x: 230, opacity: 0.2 }}
+                      // initial={{ x: 230, opacity: 0.2 }}
                       variants={VARIANTS}
                     >
                       <HourlyWeather />
                     </motion.li>
                   ))}
-              </motion.div>
+              </div>
+              {/* </motion.div> */}
             </TabPanel>
           ) : activeTabIdx === 1 ? (
             <TabPanel key={1}>
-              <motion.div
+              {/* <motion.div
                 className='flex flex-row gap-x-2.5 overflow-auto pb-2 scrollbar'
                 animate={activeTabIdx === 1 ? "open" : "closed"}
                 variants={{
@@ -78,19 +80,21 @@ export const WeatherTabs = () => {
                     },
                   },
                 }}
-              >
+              > */}
+              <div className='flex flex-row gap-x-2.5 overflow-auto pb-2 scrollbar'>
                 {Array(8)
                   .fill(true)
                   .map((_, idx) => (
                     <motion.li
                       key={idx}
-                      initial={{ x: 230, opacity: 0.2 }}
+                      // initial={{ x: 230, opacity: 0.2 }}
                       variants={VARIANTS}
                     >
                       <HourlyWeather />
                     </motion.li>
                   ))}
-              </motion.div>
+                {/* </motion.div> */}
+              </div>
             </TabPanel>
           ) : (
             <TabPanel key={2} className='mt-1 scrollbar'>
