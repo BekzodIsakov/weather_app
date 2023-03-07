@@ -2,7 +2,7 @@
 
 + [ ] Import icons
 - [ ] Create utility class for icon sizes
-+ [ ] Get any icon by its name
++ [+] Get any icon by its name
 - [ ] Style scrollbar like mobile version, gets wider when hovered over for
       easier grab with mouse
 - [ ] Search location(country/city)
