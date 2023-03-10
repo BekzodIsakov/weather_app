@@ -26,11 +26,14 @@ export const Header = () => {
       </>
     );
   } else if (cities === undefined) {
-    result = "Not found";
+    result = <div className='p-1 text-center'>Not found</div>;
   }
 
   useEffect(() => {
-    if (!search) return;
+    if (!search) {
+      setCities(null);
+      return;
+    }
     let ignore = false;
 
     async function searchCities() {
@@ -101,7 +104,7 @@ export const Header = () => {
         <label className='cursor-pointer' htmlFor='extend'>
           <SpriteIcon name='search-icon' width='15' height='15' />
         </label>
-        <ul className='absolute w-full rounded-md left-0 top-[100%] border-t-2 border-t-custom-bg-inner bg-custom-bg-outer/30 backdrop-blur-[8px] shadow-lg'>
+        <ul className='absolute z-10 w-full rounded-md left-0 top-[100%] border-t-2 border-t-custom-bg-inner bg-custom-bg-outer/30 backdrop-blur-sm shadow-lg'>
           {result}
         </ul>
       </div>
