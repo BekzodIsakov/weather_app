@@ -6,16 +6,16 @@ export const Header = () => {
   const checkboxRef = useRef(null);
   const searchInputRef = useRef(null);
   const [search, setSearch] = useState("");
-  const [cities, setCities] = useState(null);
+  const [data, setData] = useState(null);
 
   let result = null;
 
-  if (cities === "loading") {
+  if (data === "loading") {
     result = <Spinner />;
-  } else if (cities?.length) {
+  } else if (data?.length) {
     result = (
       <>
-        {cities.map((city) => (
+        {data.map((city) => (
           <li key={city.id} className='pl-2 mb-2'>
             <div className='text-custom-off-white text-sm'>{city.name}</div>
             <div className='text-custom-gray-100 text-xs leading-3'>
@@ -25,33 +25,33 @@ export const Header = () => {
         ))}
       </>
     );
-  } else if (cities === undefined) {
+  } else if (data === undefined) {
     result = <div className='p-1 text-center'>Not found</div>;
   }
 
   useEffect(() => {
     if (!search) {
-      setCities(null);
+      setData(null);
       return;
     }
     let ignore = false;
 
-    async function searchCities() {
+    async function searchdata() {
       try {
         const response = await fetch(
           `https://geocoding-api.open-meteo.com/v1/search?name=${search}`
         );
         const data = await response.json();
         if (ignore) return;
-        setCities(data.results);
+        setData(data.results);
       } catch (err) {
         console.error(err);
       }
     }
 
     const timeOut = setTimeout(() => {
-      searchCities();
-      setCities("loading");
+      searchdata();
+      setData("loading");
     }, 500);
 
     return () => {
@@ -61,8 +61,8 @@ export const Header = () => {
   }, [search]);
 
   useEffect(() => {
-    console.log(cities);
-  }, [cities]);
+    console.log(data);
+  }, [data]);
 
   useEffect(() => {
     function handleClickOutside(e) {
