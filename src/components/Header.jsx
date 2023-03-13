@@ -10,24 +10,30 @@ export const Header = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [defaultLocation, setDefaultLocation] = useState(null);
 
+  console.log({ selectedLocation });
+  console.log({ defaultLocation });
+
   const date = getCurrentDate(
-    selectedLocation?.country_code || defaultLocation?.location.country.code
+    selectedLocation?.timezone || defaultLocation?.time_zone.id
   );
-  const browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const timezone = browserTimeZone;
 
   let result = null;
 
   if (data === "loading") {
     result = <Spinner />;
   } else if (data?.length) {
+    console.log(data);
     result = (
       <>
         {data.map((location) => (
           <li key={location.id} className='my-2 px-2'>
             <button
               className='block text-left w-full'
-              onClick={() => setSelectedLocation(location)}
+              onClick={() => {
+                setSelectedLocation(location);
+                setData(null);
+                setSearchKey("");
+              }}
             >
               <div className='text-custom-off-white text-sm'>
                 {location.name}
@@ -102,12 +108,11 @@ export const Header = () => {
     <header className='flex items-start justify-between mb-4'>
       <div>
         <h2 className='text-lg font-russo'>
-          {selectedLocation ? selectedLocation : defaultLocation?.location.city}
+          {selectedLocation
+            ? selectedLocation.name
+            : defaultLocation?.location.city}
         </h2>
-        <div className='text-primary text-custom-gray-200'>
-          {/* 12 September, Sunday */}
-          {date}
-        </div>
+        <div className='text-primary text-custom-gray-200'>{date}</div>
       </div>
       <div
         className='flex flex-row p-1 px-2 relative items-center rounded-lg bg-custom-bg-box'

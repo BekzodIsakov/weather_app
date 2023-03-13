@@ -1,11 +1,10 @@
-export const getCurrentDate = (countryCode) => {
-  if (!countryCode) return;
-
+export const getCurrentDate = (timeZone) => {
   const options = {
+    weekday: "long",
     month: "long",
     day: "numeric",
-    weekday: "long",
-    timeZone: "UTC",
+    timeZone,
   };
-  return new Date().toLocaleDateString("en-" + countryCode, options);
+
+  return new Date().toLocaleDateString("en-US", options);
 };
