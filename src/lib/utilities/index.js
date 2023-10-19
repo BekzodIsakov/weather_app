@@ -1,1 +1,1 @@
-export { getCurrentDate } from "./getCurrentDate";
+export { getLocationDate } from "./getLocationDate";
