@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
 const useDynamicSVGImport = (name, options = {}) => {
-  console.log('');
-  // console.clear();
-
   const importedIconRef = useRef();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -15,7 +12,7 @@ const useDynamicSVGImport = (name, options = {}) => {
     const importIcon = async () => {
       try {
         importedIconRef.current = (
-          await import(`../assets/icons/${name}.svg`)
+          await import(`@assets/icons/${name}.svg`)
         ).ReactComponent;
         if (onCompleted) {
           onCompleted(name, importedIconRef.current);
