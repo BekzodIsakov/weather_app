@@ -1,4 +1,4 @@
-export const getCurrentDate = (timeZone) => {
+export const getLocationDate = (timeZone) => {
   const options = {
     weekday: "long",
     month: "long",
