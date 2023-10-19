@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getCurrentDate } from "lib/utilities";
+import { getLocationDate } from "lib/utilities";
 import { Spinner, SpriteIcon } from "@reusable-components";
 import { useQuery } from "@tanstack/react-query";
 import useDebounce from "lib/hooks/useDebounce";
 
 function useSearch(search) {
-  const url = `http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`;
+  const openweather_url = `http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`;
+
+  const meteo_url = `https://geocoding-api.open-meteo.com/v1/search?name=${search}`;
   return useQuery({
     queryKey: ["search", search],
     queryFn: async () => {
@@ -13,14 +15,14 @@ function useSearch(search) {
         return [];
       }
 
-      const response = await fetch(url);
+      const response = await fetch(meteo_url);
 
       if (!response.ok) {
         throw new Error("Network repsonse was not ok");
       }
 
       const data = await response.json();
-      return data;
+      return data.results.splice(0, 5);
     },
   });
 }
@@ -33,12 +35,40 @@ export const Header = () => {
 
   const checkboxRef = useRef(null);
   const searchInputRef = useRef(null);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [defaultLocation, setDefaultLocation] = useState(null);
+  const [location, setLocation] = useState(null);
 
-  const date = getCurrentDate(
-    selectedLocation?.timezone || defaultLocation?.time_zone.id
-  );
+  const currentLocation = useQuery({
+    queryKey: ["currentLocation"],
+    queryFn: detectCurrentLocation,
+  });
+
+  console.log({ location });
+  console.log({ isFetching, currentLocation });
+  console.log({ data });
+
+  async function detectCurrentLocation() {
+    const response = await fetch(
+      `https://api.ipregistry.co/?key=${process.env.REACT_APP_IP_REGISTRY_KEY}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Network reponse was not ok");
+    }
+
+    const data = await response.json();
+    if (data) {
+      const { location, time_zone } = data;
+      setLocation({
+        city: location.city,
+        country: location.country.name,
+        time_zone: time_zone.id,
+      });
+    }
+
+    return location;
+  }
+
+  const location_date = getLocationDate(location?.time_zone);
 
   let content = null;
 
@@ -47,15 +77,20 @@ export const Header = () => {
   } else if (isError) {
     console.error(error);
     content = <div className='px-2 text-red-500'>{error.message}</div>;
-  } else if (data) {
+  } else if (true) {
     content = (
       <>
-        {data.map((location, i) => (
-          <li key={i} className='my-2 px-2'>
+        {data.map((location) => (
+          <li key={location.id} className='my-2 px-2'>
             <button
               className='block text-left w-full'
               onClick={() => {
-                setSelectedLocation(location);
+                setLocation({
+                  city: location.name,
+                  state: location.admin1,
+                  country: location.country,
+                  time_zone: location.time_zone,
+                });
                 setLocationName("");
               }}
             >
@@ -63,7 +98,7 @@ export const Header = () => {
                 {location.name}
               </div>
               <div className='text-custom-gray-100 text-xs leading-3'>
-                {location.state} {location.state && "/"} {location.country}
+                {location.admin1} {location.admin1 && "/"} {location.country}
               </div>
             </button>
           </li>
@@ -71,20 +106,6 @@ export const Header = () => {
       </>
     );
   }
-
-  useEffect(() => {
-    const detectCurrentLocation = async () => {
-      const res = await fetch(
-        `https://api.ipregistry.co/?key=${process.env.env.REACT_APP_IP_REGISTRY_KEY}`
-      );
-      const location = await res.json();
-      if (location) {
-        setDefaultLocation(location);
-      }
-    };
-
-    detectCurrentLocation();
-  }, []);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -98,17 +119,16 @@ export const Header = () => {
   }, [locationName]);
 
   return (
-    <header className='flex items-start justify-between mb-4'>
+    <header className='flex items-start justify-between relative mb-4'>
       <div>
-        <h2 className='text-lg font-russo'>
-          {selectedLocation
-            ? selectedLocation.name
-            : defaultLocation?.location.city}
-        </h2>
-        <div className='text-primary text-custom-gray-200'>{date}</div>
+        <h2 className='text-lg font-russo leading-5'>{location?.city}</h2>
+        <h3 className='text-gray-100'>
+          {location?.state} {location?.state && "/"} {location?.country}
+        </h3>
+        <div className='text-primary text-custom-gray-200'>{location_date}</div>
       </div>
       <div
-        className='flex flex-row p-1 px-2 relative items-center rounded-lg bg-custom-bg-box'
+        className='flex flex-row p-1 px-2 absolute right-0 items-center rounded-lg bg-custom-bg-box'
         id='search-input-wrapper'
       >
         <input
