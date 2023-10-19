@@ -1,5 +1,5 @@
 import React from "react";
-import useDynamicSVGImport from "hooks/useDynamicSVGImport";
+import useDynamicSVGImport from "lib/hooks/useDynamicSVGImport";
 
 export const Icon = ({ name, onCompleted, onError, ...rest }) => {
   const { error, loading, SvgIcon } = useDynamicSVGImport(name);
