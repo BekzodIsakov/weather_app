@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import useDebounce from "lib/hooks/useDebounce";
 
 function useSearch(search) {
-  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${search}`;
+  const url = `http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`;
   return useQuery({
     queryKey: ["search", search],
     queryFn: async () => {
@@ -20,7 +20,7 @@ function useSearch(search) {
       }
 
       const data = await response.json();
-      return data.results;
+      return data;
     },
   });
 }
@@ -30,6 +30,7 @@ export const Header = () => {
 
   const search = useDebounce(locationName, 300);
   const { isFetching, isError, data, error } = useSearch(search);
+  console.log({ data, error });
 
   const checkboxRef = useRef(null);
   const searchInputRef = useRef(null);
@@ -50,8 +51,8 @@ export const Header = () => {
   } else if (data) {
     content = (
       <>
-        {data.map((location) => (
-          <li key={location.id} className='my-2 px-2'>
+        {data.map((location, i) => (
+          <li key={i} className='my-2 px-2'>
             <button
               className='block text-left w-full'
               onClick={() => {
@@ -63,7 +64,7 @@ export const Header = () => {
                 {location.name}
               </div>
               <div className='text-custom-gray-100 text-xs leading-3'>
-                {location.country}
+                {location.state} {location.state && "/"} {location.country}
               </div>
             </button>
           </li>
@@ -75,7 +76,7 @@ export const Header = () => {
   useEffect(() => {
     const detectCurrentLocation = async () => {
       const res = await fetch(
-        `https://api.ipregistry.co/?key=${process.env.REACT_APP_IP_REGISTRY_KEY}`
+        `https://api.ipregistry.co/?key=${process.env.env.REACT_APP_IP_REGISTRY_KEY}`
       );
       const location = await res.json();
       if (location) {
