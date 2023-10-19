@@ -30,7 +30,6 @@ export const Header = () => {
 
   const search = useDebounce(locationName, 300);
   const { isFetching, isError, data, error } = useSearch(search);
-  console.log({ data, error });
 
   const checkboxRef = useRef(null);
   const searchInputRef = useRef(null);
@@ -123,7 +122,7 @@ export const Header = () => {
           onChange={(e) => setLocationName(e.target.value)}
           type='text'
           placeholder='Enter city'
-          className='bg-custom-bg-outer peer-checked:px-1 peer-checked:mr-2 focus:mr-2 rounded-sm w-0 peer-checked:w-40 focus:w-40 duration-100'
+          className='bg-custom-bg-outer peer-checked:px-1 peer-checked:mr-2 focus:px-1 focus:mr-2 rounded-sm w-0 peer-checked:w-40 focus:w-40 duration-100'
           ref={searchInputRef}
         />
         <label className='cursor-pointer' htmlFor='extend'>
