@@ -40,19 +40,30 @@ const CurrentWeather = ({ location }) => {
   console.log({ current_weather: current_weather.data });
 
   return (
-    <section className='mb-5'>
-      <Box className={"py-3 px-5 xs:px-7 xs2:px-11"}>
-        <div className='flex justify-between'>
-          {DETAILS.map((detail, idx) => (
-            <Detail
-              key={idx}
-              type={detail.type}
-              data={detail.data}
-              icon={detail.iconName}
-            />
-          ))}
+    <section>
+      <div className='flex justify-between items-center mb-2 p-2.5'>
+        <div>
+          <h1 className='text-5xl font-russo'>18&#176;</h1>
+          <div className='text-primary capitalize text-custom-gray-200'>
+            thunderstorm
+          </div>
         </div>
-      </Box>
+        <Icon name='animated/overcast-day' width='120' />
+      </div>
+      <div className='mb-5'>
+        <Box className={"py-3 px-5 xs:px-7 xs2:px-11"}>
+          <div className='flex justify-between'>
+            {DETAILS.map((detail, idx) => (
+              <Detail
+                key={idx}
+                type={detail.type}
+                data={detail.data}
+                icon={detail.iconName}
+              />
+            ))}
+          </div>
+        </Box>
+      </div>
     </section>
   );
 };

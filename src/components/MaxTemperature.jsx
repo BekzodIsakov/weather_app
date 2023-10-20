@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "@reusable-components";
 
-export const MaxTemperature = () => {
+const MaxTemperature = () => {
   return (
     <section className='flex justify-between items-center mb-2 p-2.5'>
       <div>
@@ -14,3 +14,5 @@ export const MaxTemperature = () => {
     </section>
   );
 };
+
+export default MaxTemperature;
