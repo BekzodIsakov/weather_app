@@ -19,7 +19,12 @@ const Detail = ({ type, icon, data }) => {
 };
 
 const CurrentWeather = ({ location }) => {
-  const current_weather = useQuery({
+  const {
+    isPending,
+    isError,
+    error,
+    data: weather,
+  } = useQuery({
     queryKey: ["current_weather", location],
     queryFn: async () => {
       const response = await fetch(
@@ -37,15 +42,18 @@ const CurrentWeather = ({ location }) => {
   });
 
   console.log({ location });
-  console.log({ current_weather: current_weather.data });
+  console.log({ weather });
 
   return (
     <section>
       <div className='flex justify-between items-center mb-2 p-2.5'>
         <div>
-          <h1 className='text-5xl font-russo'>18&#176;</h1>
-          <div className='text-primary capitalize text-custom-gray-200'>
-            thunderstorm
+          <h2 className='text-5xl font-russo'>
+            {Math.round(weather?.main.temp)}&#176;
+          </h2>
+          <p>Feels like: {Math.round(weather?.main.feels_like)}&#176;</p>
+          <div className='text-primary capitalize text-gray-400'>
+            {weather?.weather[0].main}
           </div>
         </div>
         <Icon name='animated/overcast-day' width='120' />
