@@ -6,8 +6,8 @@ import useDebounce from "lib/hooks/useDebounce";
 
 function useSearch(search) {
   const openweather_url = `http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`;
-
   const meteo_url = `https://geocoding-api.open-meteo.com/v1/search?name=${search}`;
+
   return useQuery({
     queryKey: ["search", search],
     queryFn: async () => {
@@ -22,6 +22,11 @@ function useSearch(search) {
       }
 
       const data = await response.json();
+
+      if (data.results === undefined) {
+        throw new Error("Not found!");
+      }
+
       return data.results.splice(0, 5);
     },
   });
@@ -41,10 +46,6 @@ export const Header = () => {
     queryKey: ["currentLocation"],
     queryFn: detectCurrentLocation,
   });
-
-  console.log({ location });
-  console.log({ isFetching, currentLocation });
-  console.log({ data });
 
   async function detectCurrentLocation() {
     const response = await fetch(
