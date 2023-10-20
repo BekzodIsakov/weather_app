@@ -2,7 +2,7 @@ import { AppInnerWrapper } from "./components/AppInnerWrapper";
 import { Header } from "./components/Header";
 import { MaxTemperature } from "./components/MaxTemperature";
 import { WeatherTabs } from "./components/Tabs";
-import { CurrentWeatherDetails } from "./components/CurrentWeatherDetails";
+import CurrentWeather from "./components/CurrentWeather";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <AppInnerWrapper>
         <Header />
         <MaxTemperature />
-        <CurrentWeatherDetails />
+        <CurrentWeather />
         <WeatherTabs />
       </AppInnerWrapper>
     </div>

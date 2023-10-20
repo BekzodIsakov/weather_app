@@ -17,7 +17,7 @@ const Detail = ({ type, icon, data }) => {
   );
 };
 
-export const CurrentWeatherDetails = () => {
+const CurrentWeather = () => {
   return (
     <section className='mb-5'>
       <Box className={"py-3 px-5 xs:px-7 xs2:px-11"}>
@@ -35,3 +35,5 @@ export const CurrentWeatherDetails = () => {
     </section>
   );
 };
+
+export default CurrentWeather;
