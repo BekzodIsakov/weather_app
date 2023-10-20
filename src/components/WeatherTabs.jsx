@@ -17,7 +17,7 @@ const VARIANTS = {
   },
 };
 
-export const WeatherTabs = () => {
+const WeatherTabs = () => {
   const [activeTabIdx, setActiveTabIdx] = React.useState(2);
 
   return (
@@ -113,3 +113,5 @@ export const WeatherTabs = () => {
     </div>
   );
 };
+
+export default WeatherTabs;
