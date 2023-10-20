@@ -32,15 +32,14 @@ function useSearch(search) {
   });
 }
 
-export const Header = () => {
+const Header = ({ location, setLocation }) => {
   const [locationName, setLocationName] = useState("");
+  const checkboxRef = useRef(null);
+  const searchInputRef = useRef(null);
+  console.log({ location });
 
   const search = useDebounce(locationName, 300);
   const { isFetching, isError, data, error } = useSearch(search);
-
-  const checkboxRef = useRef(null);
-  const searchInputRef = useRef(null);
-  const [location, setLocation] = useState(null);
 
   const currentLocation = useQuery({
     queryKey: ["currentLocation"],
@@ -63,6 +62,10 @@ export const Header = () => {
         city: location.city,
         country: location.country.name,
         time_zone: time_zone.id,
+        coords: {
+          lat: location.latitude,
+          lon: location.longitude,
+        },
       });
     }
 
@@ -91,6 +94,10 @@ export const Header = () => {
                   state: location.admin1,
                   country: location.country,
                   time_zone: location.time_zone,
+                  coords: {
+                    lat: location.latitude,
+                    lon: location.longitude,
+                  },
                 });
                 setLocationName("");
               }}
@@ -156,3 +163,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;
