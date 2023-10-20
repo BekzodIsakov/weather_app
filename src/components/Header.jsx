@@ -94,7 +94,7 @@ const Header = ({ location, setLocation }) => {
                   city: location.name,
                   state: location.admin1,
                   country: location.country,
-                  time_zone: location.time_zone,
+                  time_zone: location.timezone,
                   coords: {
                     lat: location.latitude,
                     lon: location.longitude,
