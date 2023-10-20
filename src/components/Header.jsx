@@ -41,9 +41,10 @@ const Header = ({ location, setLocation }) => {
   const search = useDebounce(locationName, 300);
   const { isFetching, isError, data, error } = useSearch(search);
 
-  const currentLocation = useQuery({
+  useQuery({
     queryKey: ["currentLocation"],
     queryFn: detectCurrentLocation,
+    refetchOnWindowFocus: false,
   });
 
   async function detectCurrentLocation() {
