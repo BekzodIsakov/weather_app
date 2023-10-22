@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Icon } from "../reusable-components";
 import { useQuery } from "@tanstack/react-query";
 import { iconNames } from "lib/constants";
+import getTimeFromUnix from "lib/utilities/getTimeFromUnix";
 
 const DETAILS = [
   { type: "wind", iconName: "windsock", data: "10 m/s" },
@@ -9,12 +10,14 @@ const DETAILS = [
   { type: "precipitation", iconName: "umbrella", data: "100%" },
 ];
 
-const Detail = ({ type, icon, data }) => {
+const Detail = ({ name, icon, data, unit }) => {
   return (
     <div className='flex flex-col items-center'>
       <Icon name={icon} width='35' />
-      <div className='text-sm'>{data}</div>
-      <div className='text-xs capitalize text-custom-gray-100'>{type}</div>
+      <div className='text-sm'>
+        {data} {unit}
+      </div>
+      <div className='text-xs capitalize text-custom-gray-100'>{name}</div>
     </div>
   );
 };
@@ -45,7 +48,10 @@ const CurrentWeather = ({ location }) => {
     enabled: !!location,
   });
 
-  console.log({ weather });
+  if (weather) {
+    console.log({ ...weather });
+  }
+  // console.log({ weather });
 
   return (
     <section>
@@ -69,14 +75,33 @@ const CurrentWeather = ({ location }) => {
       <div className='mb-5'>
         <Box className={"py-3 px-5 xs:px-7 xs2:px-11"}>
           <div className='flex justify-between'>
-            {/* {DETAILS.map((detail, idx) => (
+            {weather?.sys.sunrise && (
               <Detail
-                key={idx}
-                type={detail.type}
-                data={detail.data}
-                icon={detail.iconName}
+                name='Wind'
+                data={getTimeFromUnix(weather?.sys.sunrise) || 0}
+                icon='windsock'
               />
-            ))} */}
+            )}
+            {weather?.wind.speed && (
+              <Detail
+                name='Wind'
+                data={Math.round(weather.wind.speed) || 0}
+                unit={"m/s"}
+                icon='windsock'
+              />
+            )}
+            <Detail
+              name='Wind'
+              data={Math.round(weather?.wind.speed) || 0}
+              unit={"m/s"}
+              icon='windsock'
+            />
+            <Detail
+              name='Wind'
+              data={Math.round(weather?.wind.speed) || 0}
+              unit={"m/s"}
+              icon='windsock'
+            />
           </div>
         </Box>
       </div>
