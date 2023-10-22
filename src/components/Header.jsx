@@ -36,7 +36,6 @@ const Header = ({ location, setLocation }) => {
   const [locationName, setLocationName] = useState("");
   const checkboxRef = useRef(null);
   const searchInputRef = useRef(null);
-  console.log({ location });
 
   const search = useDebounce(locationName, 300);
   const { isFetching, isError, data, error } = useSearch(search);

@@ -45,9 +45,7 @@ const CurrentWeather = ({ location }) => {
     enabled: !!location,
   });
 
-  // console.log({ location });
-  // console.log({ weather });
-  console.log({ icon });
+  console.log({ weather });
 
   return (
     <section>
