@@ -1,9 +1,11 @@
 function getTimeFromUnix(unix) {
-  if (arguments.length == 0) {
-    return console.error("getTimeFromUnix expected 1 argument, but recieved 0");
+  if (arguments.length != 1) {
+    return console.error(
+      `getTimeFromUnix function expected 1 argument, but recieved ${arguments.length}`
+    );
   } else if (typeof unix !== "number") {
     return console.error(
-      `getTimeFromUnix expected argument type number, but recieved ${typeof unix}`
+      `getTimeFromUnix function expected argument type number, but recieved ${typeof unix} type`
     );
   }
 
