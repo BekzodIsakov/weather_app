@@ -52,9 +52,13 @@ const CurrentWeather = ({ location }) => {
       <div className='flex justify-between items-center mb-2 p-2.5'>
         <div>
           <h2 className='text-5xl font-russo'>
-            {Math.round(weather?.main.temp)}&#176;
+            {weather?.main.temp && Math.round(weather.main.temp)}&#176;
           </h2>
-          <p>Feels like: {Math.round(weather?.main.feels_like)}&#176;</p>
+          <p>
+            Feels like:{" "}
+            {weather?.main.feels_like && Math.round(weather.main.feels_like)}
+            &#176;
+          </p>
           <div className='text-primary capitalize text-gray-400'>
             {weather?.weather[0].main}
           </div>
