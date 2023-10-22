@@ -77,9 +77,16 @@ const CurrentWeather = ({ location }) => {
           <div className='flex justify-between'>
             {weather?.sys.sunrise && (
               <Detail
-                name='Wind'
+                name='Sunrise'
                 data={getTimeFromUnix(weather?.sys.sunrise) || 0}
-                icon='windsock'
+                icon='sunrise'
+              />
+            )}
+            {weather?.sys.sunset && (
+              <Detail
+                name='Sunset'
+                data={getTimeFromUnix(weather?.sys.sunset) || 0}
+                icon='sunset'
               />
             )}
             {weather?.wind.speed && (
@@ -90,18 +97,14 @@ const CurrentWeather = ({ location }) => {
                 icon='windsock'
               />
             )}
-            <Detail
-              name='Wind'
-              data={Math.round(weather?.wind.speed) || 0}
-              unit={"m/s"}
-              icon='windsock'
-            />
-            <Detail
-              name='Wind'
-              data={Math.round(weather?.wind.speed) || 0}
-              unit={"m/s"}
-              icon='windsock'
-            />
+            {weather?.main.humidity && (
+              <Detail
+                name='Humidity'
+                data={Math.round(weather.main.humidity) || 0}
+                unit={"%"}
+                icon='humidity'
+              />
+            )}
           </div>
         </Box>
       </div>
