@@ -4,12 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { iconNames } from "lib/constants";
 import getTimeFromUnix from "lib/utilities/getTimeFromUnix";
 
-const DETAILS = [
-  { type: "wind", iconName: "windsock", data: "10 m/s" },
-  { type: "humidity", iconName: "humidity", data: "98%" },
-  { type: "precipitation", iconName: "umbrella", data: "100%" },
-];
-
 const Detail = ({ name, icon, data, unit }) => {
   return (
     <div className='flex flex-col items-center'>
@@ -24,12 +18,7 @@ const Detail = ({ name, icon, data, unit }) => {
 
 const CurrentWeather = ({ location }) => {
   const [icon, setIcon] = useState("");
-  const {
-    isPending,
-    isError,
-    error,
-    data: weather,
-  } = useQuery({
+  const { data: weather } = useQuery({
     queryKey: ["current_weather", location],
     queryFn: async () => {
       const response = await fetch(
