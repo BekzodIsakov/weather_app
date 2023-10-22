@@ -40,7 +40,6 @@ const CurrentWeather = ({ location }) => {
   if (weather) {
     console.log({ ...weather });
   }
-  // console.log({ weather });
 
   return (
     <section>
@@ -58,7 +57,6 @@ const CurrentWeather = ({ location }) => {
             {weather?.weather[0].main}
           </div>
         </div>
-        {/* <Icon name={weather?.weather[0].icon} width='120' /> */}
         {icon && <Icon name={iconNames[icon] + "-a"} width='120' />}
       </div>
       <div className='mb-5'>
