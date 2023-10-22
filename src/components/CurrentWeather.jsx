@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Icon } from "../reusable-components";
 import { useQuery } from "@tanstack/react-query";
+import { iconNames } from "lib/constants";
 
 const DETAILS = [
   { type: "wind", iconName: "windsock", data: "10 m/s" },
@@ -19,6 +20,7 @@ const Detail = ({ type, icon, data }) => {
 };
 
 const CurrentWeather = ({ location }) => {
+  const [icon, setIcon] = useState("");
   const {
     isPending,
     isError,
@@ -36,13 +38,16 @@ const CurrentWeather = ({ location }) => {
       }
 
       const data = await response.json();
+
+      setIcon(data.weather[0].icon);
       return data;
     },
     enabled: !!location,
   });
 
-  console.log({ location });
-  console.log({ weather });
+  // console.log({ location });
+  // console.log({ weather });
+  console.log({ icon });
 
   return (
     <section>
@@ -56,19 +61,20 @@ const CurrentWeather = ({ location }) => {
             {weather?.weather[0].main}
           </div>
         </div>
-        <Icon name='animated/overcast-day' width='120' />
+        {/* <Icon name={weather?.weather[0].icon} width='120' /> */}
+        {icon && <Icon name={iconNames[icon] + "-a"} width='120' />}
       </div>
       <div className='mb-5'>
         <Box className={"py-3 px-5 xs:px-7 xs2:px-11"}>
           <div className='flex justify-between'>
-            {DETAILS.map((detail, idx) => (
+            {/* {DETAILS.map((detail, idx) => (
               <Detail
                 key={idx}
                 type={detail.type}
                 data={detail.data}
                 icon={detail.iconName}
               />
-            ))}
+            ))} */}
           </div>
         </Box>
       </div>
