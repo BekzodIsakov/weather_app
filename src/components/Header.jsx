@@ -37,7 +37,7 @@ const Header = ({ location, setLocation }) => {
   const checkboxRef = useRef(null);
   const searchInputRef = useRef(null);
 
-  const search = useDebounce(locationName, 300);
+  const search = useDebounce(locationName, 600);
   const { isFetching, isError, data, error } = useSearch(search);
 
   useQuery({
