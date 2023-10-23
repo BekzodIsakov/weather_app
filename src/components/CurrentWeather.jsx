@@ -37,9 +37,9 @@ const CurrentWeather = ({ location }) => {
     enabled: !!location,
   });
 
-  if (weather) {
-    console.log({ ...weather });
-  }
+  // if (weather) {
+  //   console.log({ ...weather });
+  // }
 
   return (
     <section>
@@ -65,14 +65,18 @@ const CurrentWeather = ({ location }) => {
             {weather?.sys.sunrise && (
               <Detail
                 name='Sunrise'
-                data={getTimeFromUnix(weather?.sys.sunrise) || 0}
+                data={
+                  getTimeFromUnix(weather?.sys.sunrise, location.time_zone) || 0
+                }
                 icon='sunrise'
               />
             )}
             {weather?.sys.sunset && (
               <Detail
                 name='Sunset'
-                data={getTimeFromUnix(weather?.sys.sunset) || 0}
+                data={
+                  getTimeFromUnix(weather?.sys.sunset, location.time_zone) || 0
+                }
                 icon='sunset'
               />
             )}
