@@ -8,8 +8,8 @@ export const DailyWeatherPanel = ({ children }) => {
 
       <div className='flex items-center gap-x-12'>
         <div className='flex gap-x-3'>
-          <Icon name='overcast-day' width='30'/>
-          <Icon name='overcast-night' width='30' />
+          <Icon name='partly-cloudy-d' width='30' />
+          <Icon name='partly-cloudy-n' width='30' />
         </div>
 
         <div className='flex gap-x-3'>

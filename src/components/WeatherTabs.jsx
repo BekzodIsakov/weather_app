@@ -7,6 +7,7 @@ import {
   Tab,
   TabPanel,
 } from "../reusable-components";
+import { useQuery } from "@tanstack/react-query";
 
 const TABS = ["Today", "Tomorrow", "Next 10 days"];
 const VARIANTS = {
@@ -17,8 +18,29 @@ const VARIANTS = {
   },
 };
 
-const WeatherTabs = () => {
+const WeatherTabs = ({ location }) => {
   const [activeTabIdx, setActiveTabIdx] = React.useState(2);
+
+  console.log({ location });
+
+  const { data } = useQuery({
+    queryKey: ["five_day_weather"],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coords.lat}&lon=${location.coords.lon}&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Reponse was not ok!");
+      }
+
+      const data = await response.json();
+      return data;
+    },
+    enabled: !!location,
+  });
+
+  console.log({ data });
 
   return (
     <div className='flex flex-col overflow-auto '>
@@ -55,14 +77,17 @@ const WeatherTabs = () => {
               <div className='flex flex-row gap-x-2.5 overflow-auto pb-2 scrollbar'>
                 {Array(7)
                   .fill(true)
-                  .map((_, idx) => (
-                    <motion.li
-                      key={idx}
-                      // initial={{ x: 230, opacity: 0.2 }}
-                      variants={VARIANTS}
-                    >
+                  .map((_, i) => (
+                    <div key={i}>
                       <HourlyWeather />
-                    </motion.li>
+                    </div>
+                    // <motion.li
+                    //   key={idx}
+                    //   // initial={{ x: 230, opacity: 0.2 }}
+                    //   variants={VARIANTS}
+                    // >
+                    //<HourlyWeather />
+                    // </motion.li>
                   ))}
               </div>
               {/* </motion.div> */}
@@ -84,14 +109,17 @@ const WeatherTabs = () => {
               <div className='flex flex-row gap-x-2.5 overflow-auto pb-2 scrollbar'>
                 {Array(8)
                   .fill(true)
-                  .map((_, idx) => (
-                    <motion.li
-                      key={idx}
-                      // initial={{ x: 230, opacity: 0.2 }}
-                      variants={VARIANTS}
-                    >
+                  .map((_, i) => (
+                    <div key={i}>
                       <HourlyWeather />
-                    </motion.li>
+                    </div>
+                    // <motion.li
+                    //   key={idx}
+                    //   // initial={{ x: 230, opacity: 0.2 }}
+                    //   variants={VARIANTS}
+                    // >
+                    //  <HourlyWeather />
+                    // </motion.li>
                   ))}
                 {/* </motion.div> */}
               </div>
