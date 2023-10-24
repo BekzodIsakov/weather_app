@@ -1,8 +1,10 @@
 ## Todos
 
-- [ ] Import icons
+!["App screenshot"](/src/assets/screenshot.png "app screenshot")
+
+- [x] Import icons
 - [ ] Create utility class for icon sizes
-- [ ] Get any icon by its name
+- [x] Get any icon by its name
 - [ ] Style scrollbar like mobile version, gets wider when hovered over for
       easier grab with mouse
 - [ ] Search location(country/city)

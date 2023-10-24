@@ -1,0 +1,1 @@
+export { getLocationDate } from "./getLocationDate";

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@components": ["./components"],
+      "@reusable-components": ["./reusable-components"],
+      "@assets": ["./assets"],
+      "@utilities": ["./utilities"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
