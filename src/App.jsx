@@ -10,7 +10,7 @@ function App() {
         <Header location={location} setLocation={setLocation} />
         <CurrentWeather location={location} />
         {/* <MaxTemperature /> */}
-        {/* <WeatherTabs /> */}
+        <WeatherTabs location={location} />
       </div>
     </div>
   );

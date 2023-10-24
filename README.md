@@ -1,5 +1,7 @@
 ## Todos
 
+!["App screenshot"](/src/assets/screenshot.png "app screenshot")
+
 - [x] Import icons
 - [ ] Create utility class for icon sizes
 - [x] Get any icon by its name
