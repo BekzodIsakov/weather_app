@@ -1,7 +1,7 @@
 ## Todos
 
 [App link](https://bekzodisakov.github.io/weather_app/)
-!["App screenshot"](/src/assets/screenshot.png "app screenshot")
+!["App screenshot"](/public/screenshot.png "app screenshot")
 
 - [x] Import icons
 - [ ] Create utility class for icon sizes
